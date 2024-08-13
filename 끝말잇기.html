@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>끝말잇기 게임</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chewy&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./끝말잇기.css" />
+  </head>
+  <body>
+    <main>
+      <div class="life">
+        <img src="./image/heart.png" alt="" />
+        <img src="./image/heart.png" alt="" />
+        <img src="./image/heart.png" alt="" />
+      </div>
+      <p id="currentScore">현재 점수 : <span id="scoreValue">0</span></p>
+      <div class="con">
+        <div class="timerBar">
+          <div class="innerBar"></div>
+        </div>
+        <p class="count">
+          <span id="second">10</span>
+          초
+          <i class="fa-regular fa-clock"></i>
+        </p>
+        <h1>끝말잇기 게임</h1>
+        <div class="readyScreen">
+          <h2>
+            제한시간 10초내에 단어를 입력해주세요 <br />
+            <br />
+            아래 버튼을 누르면 시작해요
+            <br />
+            <br />
+            기회는 세번!
+          </h2>
+          <button id="startBtn">
+            게임시작
+            <i class="fa-solid fa-gamepad"></i>
+          </button>
+        </div>
+
+        <div class="gameScreen">
+          <h2 id="currentWord">현재 단어:</h2>
+          <input
+            type="text"
+            id="inputBox"
+            placeholder="단어를 입력해주세요 (한국어만)"
+          />
+          <button id="submitBtn">
+            끝말잇기
+            <i class="fa-solid fa-gamepad"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="guide">
+        <p id="success">🤩 성공 : 다음 단어로 이어보세요!</p>
+        <p id="fail">😅 실패 : 다른 단어를 입력해보세요!</p>
+      </div>
+
+      <section id="modal">
+        <div class="modalCon">
+          <h2 id="endingMessage">게임 종료</h2>
+
+          <div id="hideBtn">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+
+          <h3>최고점수</h3>
+          <h4><span id="highestScore">100</span>점</h4>
+
+          <h3>획득점수</h3>
+          <h4><span id="earnedScore">50</span>점</h4>
+
+          <button id="playAgainBtn" class="btn">
+            다시하기 <i class="fa-solid fa-rotate-right"></i>
+          </button>
+        </div>
+      </section>
+    </main>
+    <script src="./끝말잇기.js"></script>
+  </body>
+</html>
