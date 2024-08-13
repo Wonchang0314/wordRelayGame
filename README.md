@@ -19,7 +19,7 @@ Node.js로 프록시 서버를 실행한 후, 브라우저에서 게임을 즐�
    node server.js
 
 3. 프록시 서버가 실행된 후, 웹사이트를 실행합니다.
-   파일 탐색기에서 index.html을 두 번 클릭하거나, VSCode 등에서 "Live Server" 플러그인을 사용하여 실행할 수 있습니다.
+   index.html을 두 번 클릭하거나, VSCode 등에서 "Live Server" 플러그인을 사용하여 실행할 수 있습니다.
 
 
 ### 1. 시작화면
