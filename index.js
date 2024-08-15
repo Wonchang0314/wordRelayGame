@@ -206,7 +206,7 @@ const checkWord = (word) => {
 };
 
 const handleSubmit = () => {
-  const word = document.getElementById("inputBox").value.trim(); // 입력된 단어
+  const word = document.getElementById("inputBox").value; // 입력된 단어
   const url = `http://localhost:3000/proxy?word=${word}`; // 프록시 서버 URL로 요청
 
   // API 요청 보내기
@@ -218,7 +218,6 @@ const handleSubmit = () => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
       const result = data.channel.total;
       if (result > 0 && checkWord(word)) {
         handleScore("success");
@@ -240,6 +239,12 @@ const handleSubmit = () => {
 
 $submitBtn.addEventListener("click", () => {
   handleSubmit();
+});
+$inputBox.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    //document.getElementById("myForm").submit();
+  }
 });
 
 $playAgainBtn.addEventListener("click", () => {
