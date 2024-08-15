@@ -172,7 +172,8 @@ p {
 .count,
 #currentScore,
 #success,
-#fail {
+#fail,
+#modalError {
   display: none;
 }
 
@@ -206,11 +207,13 @@ p {
 }
 
 /* 모달 창 */
-#modal.show {
+#modal.show,
+#modalError.show {
   display: flex;
 }
 
-#modal {
+#modal,
+#modalError {
   display: none;
   position: fixed;
   justify-content: center;

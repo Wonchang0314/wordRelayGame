@@ -42,12 +42,15 @@ const $fail = document.getElementById("fail");
 const $endingMessage = document.getElementById("endingMessage");
 const $playAgainBtn = document.getElementById("playAgainBtn");
 
+const $modalError = document.getElementById("modalError");
+
 let timer; // 기존에 실행중인 타이머가 있었는지 체크해주는 변수
 let timeLeft;
 let isGameOver = false;
 
 $hideBtn.addEventListener("click", () => {
   $modal.classList.remove("show");
+  $modalError.classList.remove("show");
 });
 
 const $inputBox = document.getElementById("inputBox");
@@ -233,6 +236,7 @@ const handleSubmit = () => {
       }
     })
     .catch((error) => {
+      $modalError.classList.add("show");
       console.error(error);
     });
 };
@@ -243,7 +247,7 @@ $submitBtn.addEventListener("click", () => {
 $inputBox.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
-    //document.getElementById("myForm").submit();
+    handleSubmit();
   }
 });
 
