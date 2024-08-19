@@ -1,0 +1,20 @@
+{
+  "name": "word-relay-game",
+  "version": "1.0.0",
+  "description": "끝말잇기 게임 웹 애플리케이션",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wonchang0314/wordRelayGame.git"
+  },
+  "author": "장원석",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wonchang0314/wordRelayGame/issues"
+  },
+  "homepage": "https://github.com/Wonchang0314/wordRelayGame#readme"
+}

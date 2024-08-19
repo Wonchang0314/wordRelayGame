@@ -20,7 +20,7 @@ const $guide = document.querySelector(".guide");
 const $life = document.querySelector(".life");
 
 const $currentWord = document.getElementById("currentWord");
-const randomWord = startWords[Math.floor(Math.random() * startWords.length)];
+const randomWord = startWords[Math.floor(Math.random() * startWords.length)]; // 시작 단어중 랜덤하게 한 단어를 선택
 $currentWord.textContent = `현재 단어: ${randomWord}`;
 
 const $currentScore = document.getElementById("currentScore");
@@ -50,13 +50,12 @@ let isGameOver = false;
 
 $hideBtn.addEventListener("click", () => {
   $modal.classList.remove("show");
-  $modalError.classList.remove("show");
 });
 
 const $inputBox = document.getElementById("inputBox");
 
 $inputBox.addEventListener("input", (event) => {
-  const koreanRegex = /^[ㄱ-ㅎ가-힣]*$/;
+  const koreanRegex = /^[ㄱ-ㅎ가-힣]*$/; // 한글만 입력할 수 있도록 제한
 
   if (!koreanRegex.test(event.target.value)) {
     event.target.value = event.target.value.replace(/[^ㄱ-ㅎ가-힣]/g, "");
