@@ -47,6 +47,7 @@ const $modalError = document.getElementById("modalError");
 let timer; // 기존에 실행중인 타이머가 있었는지 체크해주는 변수
 let timeLeft;
 let isGameOver = false;
+const usedWords = new Set(); // 이번 게임에서 사용된 단어를 담을 배열
 
 $hideBtn.addEventListener("click", () => {
   $modal.classList.remove("show");
@@ -176,18 +177,11 @@ const handleScore = (input) => {
   }
 };
 
-const saveWord = (word) => {
-  const wordSet = new Set(JSON.parse(localStorage.getItem("words") || "[]"));
-  wordSet.add(word);
-  localStorage.setItem("words", JSON.stringify([...wordSet]));
-};
-
 /** 끝말잇기 규칙 함수 */
 const checkWord = (word) => {
   const lastChar = $currentWord.textContent.slice(-1);
-  const wordSet = new Set(JSON.parse(localStorage.getItem("words") || "[]"));
 
-  if (wordSet.has(word)) {
+  if (usedWords.has(word)) {
     $fail.textContent = "😅 실패 : 이미 사용한 단어입니다!";
     return false;
   }
@@ -216,7 +210,7 @@ const handleSubmit = () => {
       const result = data.channel.total;
       if (result > 0 && checkWord(word)) {
         handleScore("success");
-        saveWord(word);
+        usedWords.add(word);
         triggerTimer();
         $fail.style.display = "none";
         $success.style.display = "block";
