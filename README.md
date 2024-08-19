@@ -30,12 +30,10 @@ Node.js로 프록시 서버를 실행한 후, 브라우저에서 게임을 즐�
 ##
 
 ### 1. 시작화면
-<img width="656" alt="스크린샷 2024-08-13 오후 5 56 47" src="https://github.com/user-attachments/assets/0ffb5ade-b348-4c14-8cfc-44a9e0f601c1">
+<img width="656" alt="스크린샷 2024-08-13 오후 5 56 47" src="https://github.com/user-attachments/assets/2f2f018d-34fd-4e09-b2bb-fca4e60b0326">
 
 ### 2. 게임화면
-<img width="691" alt="스크린샷 2024-08-13 오후 5 57 16" src="https://github.com/user-attachments/assets/79819335-d4a3-4703-a331-375a128247b8">
+<img width="691" alt="스크린샷 2024-08-13 오후 5 57 16" src="https://github.com/user-attachments/assets/b3fdff56-8939-451c-90da-70ca4198edeb">
 
 ### 3. 게임종료 화면
-<img width="589" alt="스크린샷 2024-08-13 오후 5 57 23" src="https://github.com/user-attachments/assets/5dc0a73d-7d7d-47f6-b052-c696c53687f5">
-
-
+<img width="521" alt="스크린샷 2024-08-13 오후 5 57 34" src="https://github.com/user-attachments/assets/5a231cf4-4d16-46e9-81bb-dd04edfce945">
