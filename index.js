@@ -78,25 +78,19 @@ const gameOver = () => {
 
   isGameOver = true;
   const currentScore = Number($scoreValue.textContent);
+  const prevScore = Number(localStorage.getItem("myScore")) || 0;
 
-  if (localStorage.getItem("myScore")) {
-    const prev = localStorage.getItem("myScore");
-    if (prev < currentScore) {
-      $endingMessage.textContent = "신기록 갱신!";
-      localStorage.setItem("myScore", currentScore);
-      $highestScore.textContent = `${currentScore}`;
-      $earnedScore.textContent = `${currentScore}`;
-    } else {
-      $highestScore.textContent = `${prev}`;
-      $earnedScore.textContent = `${currentScore}`;
-    }
-  } else {
+  if (currentScore > prevScore) {
+    $endingMessage.textContent = "신기록 갱신!";
     localStorage.setItem("myScore", currentScore);
-    $highestScore.textContent = `${currentScore}`;
-    $earnedScore.textContent = `${currentScore}`;
+  } else {
+    $endingMessage.textContent = "기록 유지";
   }
 
-  document.querySelector(".fa-clock").classList.remove("shake");
+  $highestScore.textContent = `${Math.max(currentScore, prevScore)}`;
+  $earnedScore.textContent = `${currentScore}`;
+
+  $clockIcon.classList.remove("shake");
   $modal.classList.add("show");
   console.log("게임이 종료되었습니다");
 };
@@ -104,15 +98,15 @@ const gameOver = () => {
 const ticTok = () => {
   // 시계 째깍째깍 애니메이션
   $count.style.color = "red";
-  document.querySelector(".fa-clock").classList.add("shake");
+  $clockIcon.classList.add("shake");
 };
-
+/** 타이머에 대한 함수 */
 const triggerTimer = () => {
   if (timer) {
     clearInterval(timer);
   }
 
-  $innerBar.style.width = `100%`;
+  $innerBar.style.width = "100%";
   let $second = document.getElementById("second");
   timeLeft = 10;
   $second.textContent = timeLeft;
@@ -129,8 +123,12 @@ const triggerTimer = () => {
     timeLeft--; // 1초씩 감소
     $second.textContent = `${timeLeft}`;
 
-    if (timeLeft <= 4) {
-      ticTok(); // 4초 이하일 때 효과 적용
+    if (timeLeft <= 4 && !$clockIcon.classList.contains("shake")) {
+      ticTok(); // 4초 이하일 때 시계 흔들리는 애니메이션 적용
+    } else if (timeLeft > 4 && $clockIcon.classList.contains("shake")) {
+      // 4초 이상일 때 애니메이션 멈춤
+      $clockIcon.classList.remove("shake");
+      $count.style.color = "";
     }
     $innerBar.style.width = `${(timeLeft / 10) * 100}%`;
 
@@ -141,7 +139,7 @@ const triggerTimer = () => {
   }, 1000);
 };
 
-$startBtn.addEventListener("click", () => {
+const startGame = () => {
   $readyScreen.style.display = "none";
   $gameScreen.style.display = "flex";
   $life.style.display = "block";
@@ -150,6 +148,9 @@ $startBtn.addEventListener("click", () => {
   $guide.style.display = "block";
   $count.style.display = "block";
   triggerTimer();
+};
+$startBtn.addEventListener("click", () => {
+  startGame();
 });
 
 const lastHeart = () => {
@@ -177,39 +178,31 @@ const handleScore = (input) => {
 };
 
 const saveWord = (word) => {
-  if (localStorage.getItem("words")) {
-    //console.log(localStorage.getItem("words"));
-    const temp = JSON.parse(localStorage.getItem("words"));
-    temp.push(word);
-    localStorage.setItem("words", JSON.stringify(temp));
-  } else {
-    const temp = [];
-    temp.push(word);
-    localStorage.setItem("words", JSON.stringify(temp));
-  }
+  const wordSet = new Set(JSON.parse(localStorage.getItem("words") || "[]"));
+  wordSet.add(word);
+  localStorage.setItem("words", JSON.stringify([...wordSet]));
 };
 
+/** 끝말잇기 규칙 함수 */
 const checkWord = (word) => {
-  const lastChar = $currentWord.textContent.slice(-1); // 현재 단어의 마지막 글자
-  // 끝말잇기 규칙 확인
-  if (word.charAt(0) !== lastChar) {
-    console.log(word, lastChar);
+  const lastChar = $currentWord.textContent.slice(-1);
+  const wordSet = new Set(JSON.parse(localStorage.getItem("words") || "[]"));
+
+  if (wordSet.has(word)) {
+    $fail.textContent = "😅 실패 : 이미 사용한 단어입니다!";
     return false;
   }
-  if (localStorage.getItem("words")) {
-    const temp = JSON.parse(localStorage.getItem("words"));
-    if (temp.includes(word)) {
-      return false; // 중복단어 확인
-    } else {
-      return true; // 새로운 단어이고 끝말잇기 규칙이 성립되는 경우 true 반환
-    }
-  } else {
-    return true; // 첫 게임에서는 true 반환
+
+  if (word.charAt(0) !== lastChar) {
+    $fail.textContent = "😅 실패 : 끝말잇기가 성립되지 않습니다!";
+    return false;
   }
+
+  return true; // 끝말잇기 규칙이 성립되고, 새로운 단어인 경우
 };
 
 const handleSubmit = () => {
-  const word = document.getElementById("inputBox").value; // 입력된 단어
+  const word = $inputBox.value; // 입력된 단어
   const url = `http://localhost:3000/proxy?word=${word}`; // 프록시 서버 URL로 요청
 
   // API 요청 보내기
@@ -242,7 +235,9 @@ const handleSubmit = () => {
 };
 
 $submitBtn.addEventListener("click", () => {
-  handleSubmit();
+  if ($inputBox.value !== "") {
+    handleSubmit();
+  }
 });
 $inputBox.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
