@@ -169,9 +169,10 @@ const handleScore = (input) => {
     $scoreValue.textContent = newScore;
   } else if (input === "fail") {
     const lastHeartIdx = lastHeart();
-    if (lastHeartIdx >= 0) {
+    if (lastHeartIdx > 0) {
       $hearts[lastHeartIdx].src = "./image/grayHeart.png";
     } else {
+      $hearts[0].src = "./image/grayHeart.png";
       gameOver();
     }
   }
